@@ -12,12 +12,32 @@
             <form id="calculator-form">
                 <div class="form-group">
                     <label for="window-opening-width">Window opening width (in mm):</label>
-                    <input type="number" id="window-opening-width" name="window-opening-width" data-test="window-opening-width" required>
+                    <input type="number" id="window-opening-width" name="window-opening-width" data-test="window-opening-width" required min="0">
                 </div>
 
                 <div class="form-group">
                     <label for="window-opening-height">Window opening height (in mm):</label>
-                    <input type="number" id="window-opening-height" name="window-opening-height" data-test="window-opening-height" required>
+                    <input type="number" id="window-opening-height" name="window-opening-height" data-test="window-opening-height" required min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="number-of-columns-of-panes">The number of columns of window panes:</label>
+                    <input type="number" id="number-of-columns-of-panes" name="number-of-columns-of-panes" data-test="number-of-columns-of-panes" required min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="number-of-rows-of-panes">The number of rows of window panes:</label>
+                    <input type="number" id="number-of-rows-of-panes" name="number-of-rows-of-panes" data-test="number-of-rows-of-panes" required min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="outer-frame-width">Outer frame width (in mm):</label>
+                    <input type="number" id="outer-frame-width" name="outer-frame-width" data-test="outer-frame-width" required min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inner-frame-width">Inner frame width (in mm):</label>
+                    <input type="number" id="inner-frame-width" name="inner-frame-width" data-test="inner-frame-width" required min="0">
                 </div>
 
                 <div class="form-group">
@@ -26,7 +46,7 @@
                 </div>
 
             </form>
-            
+
             <div id="result">
                 <h2>Calculated Panel Sizes</h2>
                 <p id="frame-width">Panel Width: <span data-test="panel-width-value"></span> mm</p>
