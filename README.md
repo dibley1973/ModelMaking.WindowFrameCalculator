@@ -54,7 +54,11 @@ Feel free to contribute if you think this may be useful to you. You can contribu
 
 ## Branching 
 
-Branching will be a modified git flow, with a main branch
+Branching will be a modified git flow, with 
+- A `main` branch for production code
+- a `develop` branch for complete features not yet in production
+- A `release candidate` branch for code which is to be tested in the test environment (when we have one)
+- Feature branches for each feature being worked upon.
 
 ```mermaid
 ---
