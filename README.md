@@ -6,6 +6,12 @@ While designing buildings for model making I often struggle to get calculate the
 
 The purpose of this project is to build a small HTML and JavaScipt single page application that will allow the user to enter the following information:
 
+## Technologies
+- Pure HTML 5
+  - Use semantic HTML where possible 
+- Native javascript only
+  - No node packages / js frameworks
+
 ## Requirements
 
 **Given the window information specified below...**
