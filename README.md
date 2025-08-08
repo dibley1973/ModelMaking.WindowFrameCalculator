@@ -50,6 +50,52 @@ Feel free to contribute if you think this may be useful to you. You can contribu
 
 Branching will be a modified git flow, with a main branch
 
+---
+title: Example Git diagram
+---
+gitGraph
+    commit
+    branch develop
+    checkout develop
+    commit
+    branch feature1
+    checkout feature1
+    commit
+    commit
+    checkout develop
+    commit
+    checkout feature1
+    commit
+    merge develop
+    checkout develop
+    merge feature1
+    checkout main
+    commit
+    checkout develop
+    merge main
+    checkout main
+    merge develop
+    checkout develop
+    commit
+    branch feature2
+    checkout feature2
+    commit
+    checkout develop
+    commit
+    checkout feature2
+    commit
+    merge develop
+    checkout develop
+    merge feature2
+    checkout main
+    commit
+    checkout develop
+    merge main
+    checkout main
+    merge develop
+    commit
+   
+
 ## CI
 
 There will be no CI initially but when we get some kind of working product we may introduce Travis or gitHub Actions to build and deploy
