@@ -50,6 +50,7 @@ Feel free to contribute if you think this may be useful to you. You can contribu
 
 Branching will be a modified git flow, with a main branch
 
+```mermaid
 ---
 title: Example Git diagram
 ---
@@ -94,7 +95,7 @@ gitGraph
     checkout main
     merge develop
     commit
-   
+```  
 
 ## CI
 
