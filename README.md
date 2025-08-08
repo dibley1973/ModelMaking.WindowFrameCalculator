@@ -36,4 +36,20 @@ Realistically, like all of my other repos, this will probably never get complete
 
 ## Contributing
 
-Feel free to contribute if you think this may be useful to you.
+Feel free to contribute if you think this may be useful to you. You can contribute in any of the following ways:
+
+- Suggesting a feature
+- Working on a feature 
+- Testing a feature
+- Raising a bug
+- Fixing a bug
+- Discussing the application
+- Sharing this repo or the finished website (when done) with others
+
+## Branching 
+
+Branching will be a modified git flow, with a main branch
+
+## CI
+
+There will be no CI initially but when we get some kind of working product we may introduce Travis or gitHub Actions to build and deploy
