@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WindowFrameCalculator</title>
+        <link rel="stylesheet" href="./assets/css/styles.css">
+    </head>
+    <body>
+        <div id="app">
+            <h1>Window Frame Calculator</h1>
+            <p>Calculate the frame size for your windows.</p>
+            <form id="calculator-form">
+                <div class="form-group">
+                    <label for="window-opening-width">Window opening width (in mm):</label>
+                    <input type="number" id="window-opening-width" name="window-opening-width" data-test="window-opening-width" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="window-opening-height">Window opening height (in mm):</label>
+                    <input type="number" id="window-opening-height" name="window-opening-height" data-test="window-opening-height" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" data-test="calculate-sizes" >Calculate Sizes</button>
+                    <button type="reset" data-test="reset-form" >Reset Form</button>
+                </div>
+
+            </form>
+            
+            <div id="result">
+                <h2>Calculated Panel Sizes</h2>
+                <p id="frame-width">Panel Width: <span data-test="panel-width-value"></span> mm</p>
+                <p id="frame-height">Panel Height: <span data-test="panel-height-value"></span> mm</p>
+            </div>
+        </div>
+        <script src="./assets/js/app.js"></script>
+</html>
