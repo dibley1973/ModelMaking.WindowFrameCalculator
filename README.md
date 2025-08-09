@@ -118,4 +118,4 @@ Branches should be prefixed with the type of branch they are:
 
 ## CI
 
-There will be no CI initially but when we get some kind of working product we may introduce Travis or gitHub Actions to build and deploy
+We are using **GitHub Actions** for deployment to **GitHub Pages**.
