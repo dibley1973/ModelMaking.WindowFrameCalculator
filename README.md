@@ -107,6 +107,15 @@ gitGraph
     commit
 ```  
 
+### Branch Naming
+
+Branches should be prefixed with the type of branch they are:
+
+- `feature/` for new features / general work items
+- `bug/` for bug fixes
+- `collab` for colaboration branches which are accepting pull requests from more than one feature
+
+
 ## CI
 
 There will be no CI initially but when we get some kind of working product we may introduce Travis or gitHub Actions to build and deploy
