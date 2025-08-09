@@ -41,16 +41,16 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" data-test="calculate-sizes" >Calculate Sizes</button>
-                    <button type="reset" data-test="reset-form" >Reset Form</button>
+                    <button type="submit" id="calculate-sizes" data-test="calculate-sizes" >Calculate Sizes</button>
+                    <button type="reset" id="reset-form" data-test="reset-form" >Reset Form</button>
                 </div>
 
             </form>
 
             <div id="result">
                 <h2>Calculated Panel Sizes</h2>
-                <p id="frame-width">Panel Width: <span data-test="panel-width-value"></span> mm</p>
-                <p id="frame-height">Panel Height: <span data-test="panel-height-value"></span> mm</p>
+                <p>Pane Width: <span id="pane-width" data-test="pane-width-value"></span> mm</p>
+                <p>Pane Height: <span  id="pane-height" data-test="pane-height-value"></span> mm</p>
             </div>
         </div>
         <script src="./assets/js/app.js"></script>
