@@ -22,6 +22,9 @@ class App {
         this.submitButton = document.getElementById('calculate-sizes');
         this.submitButton.addEventListener('click', this.calculateSizes.bind(this));
         
+        this.paneWidthElemnt = document.getElementById('pane-width');
+        this.paneHeightElemnt = document.getElementById('pane-height');
+
         /* TODO: uncomment when reset functionality is needed in issue #4
         this.resetButton = document.getElementById('reset-form');
         this.resetButton.addEventListener('click', this.handleReset.bind(this));
@@ -73,6 +76,12 @@ class App {
             errors.push('Reset button is missing');
         }
         */
+        if (!this.paneWidthElemnt) {
+            errors.push('Pane width element is missing');
+        }
+        if (!this.paneHeightElemnt) {   
+            errors.push('Pane height element is missing');
+        }
 
         if (errors.length > 0) {
             console.error('Validation errors:', errors.join(', '));
