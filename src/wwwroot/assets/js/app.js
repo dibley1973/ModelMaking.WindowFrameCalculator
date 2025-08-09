@@ -40,9 +40,31 @@ class App {
         console.log('Form submitted, calculating sizes');
         // Additional logic for form submission can be added here
         this.calculatAndSetPaneWidth();
-        //this.calculateAndSetPaneHeight();
+        this.calculateAndSetPaneHeight();
     }
 
+    calculateAndSetPaneHeight() {
+        const windowHeight = parseFloat(this.windowOpeningHeightField.value);
+        const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
+        const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
+        const numberOfRows = parseInt(this.numberOfPaneRowsField.value, 10);
+        
+        if (isNaN(windowHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfRows)) {
+            console.error('Invalid input values for pane height calculation');
+            return;
+        }
+
+        const totalOuterFrameHeight = outerFrameWidth * 2; // Outer frame on both sides
+        const totalInnerFrameHeight = innerFrameWidth * (numberOfRows - 1); // Inner frame between rows
+        const totalFrameHeight = totalOuterFrameHeight + totalInnerFrameHeight;
+        const paneHeight = (windowHeight - totalFrameHeight) / numberOfRows;
+
+        if (paneHeight <= 0) {
+            console.error('Calculated pane height is not valid');
+        }
+
+        this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
+    }
     /**
      * Calculates and sets the pane width based on the input fields.
      * Assumes the formula:
@@ -65,6 +87,10 @@ class App {
         const totalInnerFrameWidth = innerFrameWidth * (numberOfColumns - 1); // Inner frame between columns
         const totalFrameWidth = totalOuterFrameWidth + totalInnerFrameWidth;
         const paneWidth = (windowWidth - totalFrameWidth) / numberOfColumns;
+
+        if (paneWidth <= 0) {
+            console.error('Calculated pane width is not valid');
+        }
 
         this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
     }
