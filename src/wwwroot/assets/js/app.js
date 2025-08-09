@@ -39,6 +39,34 @@ class App {
         event.preventDefault();
         console.log('Form submitted, calculating sizes');
         // Additional logic for form submission can be added here
+        this.calculatAndSetPaneWidth();
+        //this.calculateAndSetPaneHeight();
+    }
+
+    /**
+     * Calculates and sets the pane width based on the input fields.
+     * Assumes the formula:
+     * Pane Width = (Window Width - (Outer Frame Width * 2) - (Inner Frame Width * (Number of Columns - 1))) / Number of Columns
+     * @returns {void}
+     * @throws {Error} If any of the input values are invalid or missing.
+     */
+    calculatAndSetPaneWidth() {
+        const windowWidth = parseFloat(this.windowOpeningWidthField.value);
+        const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
+        const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
+        const numberOfColumns = parseInt(this.numberOfPaneColumnsField.value, 10);
+
+        if (isNaN(windowWidth) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfColumns)) {
+            console.error('Invalid input values for pane width calculation');
+            return;
+        }
+
+        const totalOuterFrameWidth = outerFrameWidth * 2; // Outer frame on both sides
+        const totalInnerFrameWidth = innerFrameWidth * (numberOfColumns - 1); // Inner frame between columns
+        const totalFrameWidth = totalOuterFrameWidth + totalInnerFrameWidth;
+        const paneWidth = (windowWidth - totalFrameWidth) / numberOfColumns;
+
+        this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
     }
 
     /**
