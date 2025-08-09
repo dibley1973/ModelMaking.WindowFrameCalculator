@@ -419,3 +419,6 @@ FodyWeavers.xsd
 
 # Commits file
 .commits
+
+# Backups
+*.drawio.bkp
