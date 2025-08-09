@@ -3,6 +3,7 @@
  */
 class App {
     constructor() {
+        console.log('App initialized');
         this.assignElements();
         this.validateElements();
 
@@ -67,9 +68,11 @@ class App {
         if (!this.submitButton) {
             errors.push('Submit button is missing');
         }
+        /* TODO: uncomment when reset functionality is needed in issue #4
         if (!this.resetButton) {
             errors.push('Reset button is missing');
         }
+        */
 
         if (errors.length > 0) {
             console.error('Validation errors:', errors.join(', '));
@@ -79,3 +82,5 @@ class App {
         }
     }
 }
+
+const app = new App();
