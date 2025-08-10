@@ -11,9 +11,12 @@ class CanvasWindowRenderer {
         this.canvasWindowSettings = canvasWindowSettings;
 
         this.canvas = document.getElementById(canvasWindowSettings.canvasElementId);
+        if (!this.canvas) {
+            throw new Error(`Canvas element with ID ${canvasWindowSettings.canvasElementId} not found.`);
+        }
+        
         this.canvasContext = this.canvas.getContext('2d');
-        this.resizeCanvas();
-
+        
         this.drawWindowFrame();
     }
 
@@ -23,6 +26,7 @@ class CanvasWindowRenderer {
     drawWindowFrame() {
         const context = this.canvasContext;
 
+        this.resizeCanvas();
         //context.fillStyle = "white";
 
         context.globalCompositeOperation = "destination-over";
