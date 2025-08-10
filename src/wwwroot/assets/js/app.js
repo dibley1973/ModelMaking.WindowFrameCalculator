@@ -49,6 +49,8 @@ class App {
 
         // Initialize the canvas window renderer with the settings
         const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasWindowSettings);
+        // Draw the window frame on the canvas
+        canvasWindowRenderer.drawWindowFrame();
     }
 
     calculateAndSetPaneHeight() {
