@@ -49,8 +49,6 @@ class App {
 
         // Initialize the canvas window renderer with the settings
         const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasWindowSettings);
-        canvasWindowRenderer.resizeCanvas();
-        canvasWindowRenderer.drawWindowFrame();
     }
 
     calculateAndSetPaneHeight() {
@@ -80,6 +78,7 @@ class App {
         this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
         this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
         this.canvasWindowSettings.setNumberOfPaneRows(numberOfRows);
+        this.canvasWindowSettings.setPaneHeight(paneHeight);
     }
     /**
      * Calculates and sets the pane width based on the input fields.
@@ -109,6 +108,14 @@ class App {
         }
 
         this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
+
+        
+        // Update the canvas window settings with the new dimensions
+        this.canvasWindowSettings.setWindowOpeningWidth(windowWidth);
+        this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
+        this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
+        this.canvasWindowSettings.setNumberOfPaneColumns(numberOfColumns);
+        this.canvasWindowSettings.setPaneWidth(paneWidth);
     }
 
     /**
