@@ -14,6 +14,8 @@ export default class CanvasWindowSettings {
         this.numberOfPaneRows = 0;
         this.outerFrameWidth = 0;
         this.innerFrameWidth = 0;
+        this.paneHeight = 0;
+        this.paneWidth = 0;
     }
 
     setCanvasElementId(id) {
@@ -47,4 +49,13 @@ export default class CanvasWindowSettings {
     setInnerFrameWidth(width) {
         this.innerFrameWidth = width;
     }
+
+    setPaneHeight(height) {
+        this.paneHeight = height;
+    }
+
+    setPaneWidth(width) {
+        this.paneWidth = width;
+    }
+
 }
