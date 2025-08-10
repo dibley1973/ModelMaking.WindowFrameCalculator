@@ -7,6 +7,8 @@ class App {
         this.assignElements();
         this.validateElements();
 
+        this.canvasWindowSettings = new CanvasWindowSettings();
+        this.canvasWindowSettings.setCanvasElementId('window-canvas');
     }
 
     assignElements() {
@@ -41,6 +43,11 @@ class App {
         // Additional logic for form submission can be added here
         this.calculatAndSetPaneWidth();
         this.calculateAndSetPaneHeight();
+
+        // Initialize the canvas window renderer with the settings
+        const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasWindowSettings);
+        canvasWindowRenderer.resizeCanvas();
+        canvasWindowRenderer.drawWindowFrame();
     }
 
     calculateAndSetPaneHeight() {
