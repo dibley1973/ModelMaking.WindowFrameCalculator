@@ -1,7 +1,7 @@
 /**
  * Represents the settings for a canvas window.
  */
-class CanvasWindowSettings {
+export default class CanvasWindowSettings {
     /**
      * Initializes the default settings for the canvas window.
      */

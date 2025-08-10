@@ -1,7 +1,7 @@
 /*
  * Responsible for rendering the canvas window in the application.
  */
-class CanvasWindowRenderer {
+export default class CanvasWindowRenderer {
     /**
      * Initializes the canvas window renderer.
      * @param {CanvasWindowSettings} canvasWindowSettings - Settings for the canvas window.
