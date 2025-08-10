@@ -10,6 +10,7 @@ class App {
         this.assignElements();
         this.validateElements();
 
+        this.windowSetting = new WindowSettings();
         this.canvasWindowSettings = new CanvasWindowSettings();
         this.canvasWindowSettings.setCanvasElementId('window-canvas');
     }
@@ -58,29 +59,39 @@ class App {
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
         const numberOfRows = parseInt(this.numberOfPaneRowsField.value, 10);
-        
+
+        // Validate the values
         if (isNaN(windowHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfRows)) {
             console.error('Invalid input values for pane height calculation');
             return;
         }
 
+        // Calculate the pane height
         const totalOuterFrameHeight = outerFrameWidth * 2; // Outer frame on both sides
         const totalInnerFrameHeight = innerFrameWidth * (numberOfRows - 1); // Inner frame between rows
         const totalFrameHeight = totalOuterFrameHeight + totalInnerFrameHeight;
         const paneHeight = (windowHeight - totalFrameHeight) / numberOfRows;
 
+        // Validate the calculated pane height
         if (paneHeight <= 0) {
             console.error('Calculated pane height is not valid');
         }
 
         this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
 
-        // Update the canvas window settings with the new dimensions
-        this.canvasWindowSettings.setWindowOpeningHeight(windowHeight);
-        this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
-        this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
-        this.canvasWindowSettings.setNumberOfPaneRows(numberOfRows);
-        this.canvasWindowSettings.setPaneHeight(paneHeight);
+        // Cache the window settings
+        this.windowSetting.windowHeight = windowHeight;
+        this.windowSetting.outerFrameWidth = outerFrameWidth;
+        this.windowSetting.innerFrameWidth = innerFrameWidth;
+        this.windowSetting.numberOfRows = numberOfRows;
+        this.windowSetting.paneHeight = paneHeight;
+
+        // // Update the canvas window settings with the new dimensions
+        // this.canvasWindowSettings.setWindowOpeningHeight(windowHeight);
+        // this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
+        // this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
+        // this.canvasWindowSettings.setNumberOfPaneRows(numberOfRows);
+        // this.canvasWindowSettings.setPaneHeight(paneHeight);
     }
     /**
      * Calculates and sets the pane width based on the input fields.
