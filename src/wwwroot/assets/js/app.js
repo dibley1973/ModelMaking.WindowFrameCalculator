@@ -1,3 +1,6 @@
+import CanvasWindowSettings from './CanvasWindowSettings.js';
+import CanvasWindowRenderer from './canvasWindowRenderer.js';
+
 /**
  * App class for managing application state and behavior.
  */
@@ -71,6 +74,12 @@ class App {
         }
 
         this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
+
+        // Update the canvas window settings with the new dimensions
+        this.canvasWindowSettings.setWindowOpeningHeight(windowHeight);
+        this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
+        this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
+        this.canvasWindowSettings.setNumberOfPaneRows(numberOfRows);
     }
     /**
      * Calculates and sets the pane width based on the input fields.
