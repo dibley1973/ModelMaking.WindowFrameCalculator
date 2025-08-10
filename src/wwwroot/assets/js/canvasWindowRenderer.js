@@ -16,8 +16,6 @@ export default class CanvasWindowRenderer {
         }
         
         this.canvasContext = this.canvas.getContext('2d');
-        
-        this.drawWindowFrame();
     }
 
     /**
@@ -27,16 +25,15 @@ export default class CanvasWindowRenderer {
         const context = this.canvasContext;
 
         this.resizeCanvas();
-        //context.fillStyle = "white";
 
         context.globalCompositeOperation = "destination-over";
-        context.fillStyle = "#00FFFF";
-        context.fillRect(0,0,canvas.width,canvas.height);//for white background
+        context.fillStyle = "#EEEEEE"; // light gray background
+        context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         context.globalCompositeOperation = "source-over";
         context.lineWidth = 1;
-        context.strokeStyle="#FF0000";
-        context.strokeRect(0, 0, canvas.width, canvas.height); //for red border
+        context.strokeStyle="#999999"; // gray border
+        context.strokeRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     /**
@@ -46,7 +43,7 @@ export default class CanvasWindowRenderer {
         const pixelRatio = window.devicePixelRatio || 1;
         this.canvas.width = this.canvas.clientWidth * pixelRatio * this.canvasWindowSettings.windowOpeningWidth;
         this.canvas.height = this.canvas.clientHeight * pixelRatio * this.canvasWindowSettings.windowOpeningHeight;
-        //this.context.scale(pixelRatio, pixelRatio);
+
         console.log(`Canvas resized to ${this.canvas.width}x${this.canvas.height}`);
     }
 }
