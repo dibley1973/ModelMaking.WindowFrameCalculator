@@ -54,28 +54,30 @@ export default class CanvasWindowRenderer {
         for (let rowIndex = 0; rowIndex < windowSettings.numberOfPaneRows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < windowSettings.numberOfPaneColumns; columnIndex++) {
                 // Calculate the position and size of each pane
-                let x = windowSettings.outerFrameWidth + (columnIndex * windowSettings.paneWidth);
-                let y = windowSettings.outerFrameWidth + (rowIndex * windowSettings.paneHeight);
+                let startPositionX = windowSettings.outerFrameWidth + (columnIndex * windowSettings.paneWidth);
+                let startPositionY = windowSettings.outerFrameWidth + (rowIndex * windowSettings.paneHeight);
                 
                 // Adjust x position for inner frame width if required
                 if(columnIndex > 0) {
-                    x += windowSettings.innerFrameWidth; // Adjust for inner frame width
+                    const spacer = windowSettings.innerFrameWidth * columnIndex;
+                    startPositionX += spacer;
                 }
 
                 // Adjust y position for inner frame width if required
                 if(rowIndex > 0) {
-                    y += windowSettings.innerFrameWidth; // Adjust for inner frame width
+                    const spacer = windowSettings.innerFrameWidth * rowIndex;
+                    startPositionY += spacer;
                 }
 
                 // Draw the pane
                 context.fillRect(
-                    x * this.pixelMultiplier,
-                    y * this.pixelMultiplier,
+                    startPositionX * this.pixelMultiplier,
+                    startPositionY * this.pixelMultiplier,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
                 context.strokeRect(
-                    x * this.pixelMultiplier,
-                    y * this.pixelMultiplier,
+                    startPositionX * this.pixelMultiplier,
+                    startPositionY * this.pixelMultiplier,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
             }
