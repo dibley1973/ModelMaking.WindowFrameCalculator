@@ -69,17 +69,25 @@ export default class CanvasWindowRenderer {
                     startPositionY += spacer;
                 }
 
-                // Draw the pane
+                // Draw the pane background and frame
+                const startPositionXMultiplied = startPositionX * this.pixelMultiplier;
+                const startPositionYMultiplied = startPositionY * this.pixelMultiplier;
+
                 context.fillRect(
-                    startPositionX * this.pixelMultiplier,
-                    startPositionY * this.pixelMultiplier,
+                    startPositionXMultiplied,
+                    startPositionYMultiplied,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
                 context.strokeRect(
-                    startPositionX * this.pixelMultiplier,
-                    startPositionY * this.pixelMultiplier,
+                    startPositionXMultiplied,
+                    startPositionYMultiplied,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
+                const startPostitionText = `${startPositionX}x${startPositionY}`;
+                context.strokeText(
+                    startPostitionText,
+                    startPositionXMultiplied,
+                    startPositionYMultiplied);
             }
         
         }
