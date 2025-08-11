@@ -16,7 +16,7 @@ class App {
         console.log('App initialized');
 
         this.canvasElementId = "window-canvas";
-        this.canvasRenderingPixelMultiplier = 40;
+        this.canvasRenderingPixelMultiplier = 20;
 
         this.assignElements();
         this.validateElements();
