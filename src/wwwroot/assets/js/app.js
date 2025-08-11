@@ -1,21 +1,33 @@
 import CanvasWindowSettings from './CanvasWindowSettings.js';
 import CanvasWindowRenderer from './canvasWindowRenderer.js';
+import WindowSettings from './windowSettings.js';
 
 /**
  * App class for managing application state and behavior.
  */
 class App {
+    
+    /**
+     * Initializes the app with default settings and assigns elements.
+     * @throws Will throw an error if the canvas element is not found.
+     * */
     constructor() {
+
         console.log('App initialized');
+
+        this.canvasElementId = "window-canvas";
+        this.canvasRenderingPixelMultiplier = 40;
+
         this.assignElements();
         this.validateElements();
 
-        this.windowSetting = new WindowSettings();
+        this.windowSettings = new WindowSettings();
         this.canvasWindowSettings = new CanvasWindowSettings();
-        this.canvasWindowSettings.setCanvasElementId('window-canvas');
+        this.canvasWindowSettings.setCanvasElementId(this.canvasElementId);
     }
 
     assignElements() {
+
         this.form = document.getElementById('calculator-form');
 
         this.windowOpeningHeightField = document.getElementById('window-opening-height');
@@ -49,28 +61,29 @@ class App {
         this.calculateAndSetPaneHeight();
 
         // Initialize the canvas window renderer with the settings
-        const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasWindowSettings);
+        const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasElementId, this.canvasRenderingPixelMultiplier);
+        
         // Draw the window frame on the canvas
-        canvasWindowRenderer.drawWindowFrame();
+        canvasWindowRenderer.drawWindowFrame(this.windowSettings);
     }
 
     calculateAndSetPaneHeight() {
-        const windowHeight = parseFloat(this.windowOpeningHeightField.value);
+        const windowOpeningHeight = parseFloat(this.windowOpeningHeightField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
-        const numberOfRows = parseInt(this.numberOfPaneRowsField.value, 10);
+        const numberOfPaneRows = parseInt(this.numberOfPaneRowsField.value, 10);
 
         // Validate the values
-        if (isNaN(windowHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfRows)) {
+        if (isNaN(windowOpeningHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfPaneRows)) {
             console.error('Invalid input values for pane height calculation');
             return;
         }
 
         // Calculate the pane height
         const totalOuterFrameHeight = outerFrameWidth * 2; // Outer frame on both sides
-        const totalInnerFrameHeight = innerFrameWidth * (numberOfRows - 1); // Inner frame between rows
+        const totalInnerFrameHeight = innerFrameWidth * (numberOfPaneRows - 1); // Inner frame between rows
         const totalFrameHeight = totalOuterFrameHeight + totalInnerFrameHeight;
-        const paneHeight = (windowHeight - totalFrameHeight) / numberOfRows;
+        const paneHeight = (windowOpeningHeight - totalFrameHeight) / numberOfPaneRows;
 
         // Validate the calculated pane height
         if (paneHeight <= 0) {
@@ -80,11 +93,11 @@ class App {
         this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
 
         // Cache the window settings
-        this.windowSetting.windowHeight = windowHeight;
-        this.windowSetting.outerFrameWidth = outerFrameWidth;
-        this.windowSetting.innerFrameWidth = innerFrameWidth;
-        this.windowSetting.numberOfRows = numberOfRows;
-        this.windowSetting.paneHeight = paneHeight;
+        this.windowSettings.windowOpeningHeight = windowOpeningHeight;
+        this.windowSettings.outerFrameWidth = outerFrameWidth;
+        this.windowSettings.innerFrameWidth = innerFrameWidth;
+        this.windowSettings.numberOfPaneRows = numberOfPaneRows;
+        this.windowSettings.paneHeight = paneHeight;
 
         // // Update the canvas window settings with the new dimensions
         // this.canvasWindowSettings.setWindowOpeningHeight(windowHeight);
@@ -101,20 +114,20 @@ class App {
      * @throws {Error} If any of the input values are invalid or missing.
      */
     calculatAndSetPaneWidth() {
-        const windowWidth = parseFloat(this.windowOpeningWidthField.value);
+        const windowOpeningWidth = parseFloat(this.windowOpeningWidthField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
-        const numberOfColumns = parseInt(this.numberOfPaneColumnsField.value, 10);
+        const numberOfPaneColumns = parseInt(this.numberOfPaneColumnsField.value, 10);
 
-        if (isNaN(windowWidth) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfColumns)) {
+        if (isNaN(windowOpeningWidth) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfPaneColumns)) {
             console.error('Invalid input values for pane width calculation');
             return;
         }
 
         const totalOuterFrameWidth = outerFrameWidth * 2; // Outer frame on both sides
-        const totalInnerFrameWidth = innerFrameWidth * (numberOfColumns - 1); // Inner frame between columns
+        const totalInnerFrameWidth = innerFrameWidth * (numberOfPaneColumns - 1); // Inner frame between columns
         const totalFrameWidth = totalOuterFrameWidth + totalInnerFrameWidth;
-        const paneWidth = (windowWidth - totalFrameWidth) / numberOfColumns;
+        const paneWidth = (windowOpeningWidth - totalFrameWidth) / numberOfPaneColumns;
 
         if (paneWidth <= 0) {
             console.error('Calculated pane width is not valid');
@@ -122,13 +135,19 @@ class App {
 
         this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
 
+        // Cache the window settings
+        this.windowSettings.windowOpeningWidth = windowOpeningWidth;
+        this.windowSettings.outerFrameWidth = outerFrameWidth;
+        this.windowSettings.innerFrameWidth = innerFrameWidth;
+        this.windowSettings.numberOfPaneColumns = numberOfPaneColumns;
+        this.windowSettings.paneWidth = paneWidth;
         
-        // Update the canvas window settings with the new dimensions
-        this.canvasWindowSettings.setWindowOpeningWidth(windowWidth);
-        this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
-        this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
-        this.canvasWindowSettings.setNumberOfPaneColumns(numberOfColumns);
-        this.canvasWindowSettings.setPaneWidth(paneWidth);
+        // // Update the canvas window settings with the new dimensions
+        // this.canvasWindowSettings.setWindowOpeningWidth(windowWidth);
+        // this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
+        // this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
+        // this.canvasWindowSettings.setNumberOfPaneColumns(numberOfColumns);
+        // this.canvasWindowSettings.setPaneWidth(paneWidth);
     }
 
     /**
