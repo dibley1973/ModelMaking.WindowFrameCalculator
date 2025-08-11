@@ -10,6 +10,7 @@ export default class CanvasWindowRenderer {
      */
     constructor(canvasElementId, pixelMultiplier) {
         this.pixelMultiplier = pixelMultiplier;
+        this.fontSize = 20; // Default font size
         
         //this.canvas = document.getElementById(canvasWindowSettings.canvasElementId);
         this.canvas = document.getElementById(canvasElementId);
@@ -73,21 +74,36 @@ export default class CanvasWindowRenderer {
                 const startPositionXMultiplied = startPositionX * this.pixelMultiplier;
                 const startPositionYMultiplied = startPositionY * this.pixelMultiplier;
 
+                // Draw filled rectangle for the pane
                 context.fillRect(
                     startPositionXMultiplied,
                     startPositionYMultiplied,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
+
+                // Draw the border for the pane
                 context.strokeRect(
                     startPositionXMultiplied,
                     startPositionYMultiplied,
                     windowSettings.paneWidth * this.pixelMultiplier,
                     windowSettings.paneHeight * this.pixelMultiplier);
-                const startPostitionText = `${startPositionX}x${startPositionY}`;
+
+                // Draw the top-left corner position as dimensions text
+                const topLeftPositionText = `${startPositionX}x${startPositionY}`;
+                context.font = `${this.fontSize}px Arial`;
                 context.strokeText(
-                    startPostitionText,
+                    topLeftPositionText,
                     startPositionXMultiplied,
-                    startPositionYMultiplied);
+                    startPositionYMultiplied + this.fontSize);
+
+                // Draw the bottom-right corner position as dimensions text
+                const bottomRightPositionX = startPositionX + windowSettings.paneWidth;
+                const bottomRightPositionY = startPositionY + windowSettings.paneHeight;
+                const bottomRightText = `${bottomRightPositionX}x${bottomRightPositionY}`;
+                context.strokeText(
+                    bottomRightText,
+                    startPositionXMultiplied + windowSettings.paneWidth * this.pixelMultiplier - context.measureText(bottomRightText).width,
+                    startPositionYMultiplied + windowSettings.paneHeight * this.pixelMultiplier - 5); // Adjusted for text height
             }
         
         }
