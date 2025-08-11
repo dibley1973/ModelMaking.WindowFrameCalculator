@@ -47,13 +47,40 @@ export default class CanvasWindowRenderer {
         context.strokeStyle="#999999"; // gray border
         context.strokeRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Draw the firt pane. This will need to be in a loop once working!
-        context.strokeStyle = "#000000"; // black border for the window pane frame
-        context.strokeRect(
-            windowSettings.outerFrameWidth * this.pixelMultiplier,
-            windowSettings.outerFrameWidth * this.pixelMultiplier,
-            windowSettings.paneWidth * this.pixelMultiplier,
-            windowSettings.paneHeight * this.pixelMultiplier);
+        // Iterate through the number of rows and columns to draw the panes
+        for (let rowIndex = 0; rowIndex < windowSettings.numberOfPaneRows; rowIndex++) {
+            for (let columnIndex = 0; columnIndex < windowSettings.numberOfPaneColumns; columnIndex++) {
+                // Calculate the position and size of each pane
+                let x = windowSettings.outerFrameWidth + (columnIndex * windowSettings.paneWidth);
+                let y = windowSettings.outerFrameWidth + (rowIndex * windowSettings.paneHeight);
+                
+                // Adjust x position for inner frame width if required
+                if(columnIndex > 0) {
+                    x += windowSettings.innerFrameWidth; // Adjust for inner frame width
+                }
+
+                // Adjust y position for inner frame width if required
+                if(rowIndex > 0) {
+                    y += windowSettings.innerFrameWidth; // Adjust for inner frame width
+                }
+
+                // Draw the pane
+                context.strokeRect(
+                    x * this.pixelMultiplier,
+                    y * this.pixelMultiplier,
+                    windowSettings.paneWidth * this.pixelMultiplier,
+                    windowSettings.paneHeight * this.pixelMultiplier);
+            }
+        
+        }
+
+        // // Draw the firt pane. This will need to be in a loop once working!
+        // context.strokeStyle = "#000000"; // black border for the window pane frame
+        // context.strokeRect(
+        //     windowSettings.outerFrameWidth * this.pixelMultiplier,
+        //     windowSettings.outerFrameWidth * this.pixelMultiplier,
+        //     windowSettings.paneWidth * this.pixelMultiplier,
+        //     windowSettings.paneHeight * this.pixelMultiplier);
 
         console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
     }
