@@ -31,23 +31,29 @@ export default class CanvasWindowRenderer {
         console.log('Drawing window frame...');
 
         this.resizeCanvas(windowSettings);
-        
+
         //this.windowSettings = windowSettings;
 
         const context = this.canvasContext;
 
-
+        // Draw the background
         context.globalCompositeOperation = "destination-over";
         context.fillStyle = "#EEEEEE"; // light gray background
         context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Draw the outer frame
         context.globalCompositeOperation = "source-over";
         context.lineWidth = 1;
         context.strokeStyle="#999999"; // gray border
         context.strokeRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Draw the firt pane. This will need to be in a loop once working!
         context.strokeStyle = "#000000"; // black border for the window pane frame
-        context.strokeRect(windowSettings.outerFrameWidth, windowSettings.outerFrameWidth, windowSettings.paneWidth, windowSettings.paneHeight);
+        context.strokeRect(
+            windowSettings.outerFrameWidth * this.pixelMultiplier,
+            windowSettings.outerFrameWidth * this.pixelMultiplier,
+            windowSettings.paneWidth * this.pixelMultiplier,
+            windowSettings.paneHeight * this.pixelMultiplier);
 
         console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
     }
