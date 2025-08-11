@@ -47,7 +47,10 @@ export default class CanvasWindowRenderer {
         context.strokeStyle="#999999"; // gray border
         context.strokeRect(0, 0, this.canvas.width, this.canvas.height);
 
+        
         // Iterate through the number of rows and columns to draw the panes
+        context.fillStyle = "#AAEEFF";  // light blue panes
+        context.strokeStyle="#88AABB";  // bluey-gray border
         for (let rowIndex = 0; rowIndex < windowSettings.numberOfPaneRows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < windowSettings.numberOfPaneColumns; columnIndex++) {
                 // Calculate the position and size of each pane
@@ -65,6 +68,11 @@ export default class CanvasWindowRenderer {
                 }
 
                 // Draw the pane
+                context.fillRect(
+                    x * this.pixelMultiplier,
+                    y * this.pixelMultiplier,
+                    windowSettings.paneWidth * this.pixelMultiplier,
+                    windowSettings.paneHeight * this.pixelMultiplier);
                 context.strokeRect(
                     x * this.pixelMultiplier,
                     y * this.pixelMultiplier,
