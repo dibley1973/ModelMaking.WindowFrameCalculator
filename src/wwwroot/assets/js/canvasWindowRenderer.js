@@ -108,14 +108,6 @@ export default class CanvasWindowRenderer {
         
         }
 
-        // // Draw the firt pane. This will need to be in a loop once working!
-        // context.strokeStyle = "#000000"; // black border for the window pane frame
-        // context.strokeRect(
-        //     windowSettings.outerFrameWidth * this.pixelMultiplier,
-        //     windowSettings.outerFrameWidth * this.pixelMultiplier,
-        //     windowSettings.paneWidth * this.pixelMultiplier,
-        //     windowSettings.paneHeight * this.pixelMultiplier);
-
         console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
     }
 
@@ -126,11 +118,8 @@ export default class CanvasWindowRenderer {
     resizeCanvas(windowSettings) {
         console.log('Resizing canvas...');
         
-        //const pixelRatio = window.devicePixelRatio || 1;
         this.canvas.width = this.pixelMultiplier * windowSettings.windowOpeningWidth;
-        //this.canvas.width = this.canvas.clientWidth * pixelRatio * this.canvasWindowSettings.windowOpeningWidth;
         this.canvas.height = this.pixelMultiplier * windowSettings.windowOpeningHeight;
-        //this.canvas.height = this.canvas.clientHeight * pixelRatio * this.canvasWindowSettings.windowOpeningHeight;
 
         console.log(`Canvas resized to ${this.canvas.width} x ${this.canvas.height}`);
     }
