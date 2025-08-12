@@ -90,6 +90,9 @@ class App {
             console.error('Calculated pane height is not valid');
         }
 
+        // Round the pane height to two decimal places
+        paneHeight = this.roundToTwoDecimalPlaces(paneHeight);
+
         this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
 
         // Cache the window settings
@@ -133,6 +136,9 @@ class App {
             console.error('Calculated pane width is not valid');
         }
 
+        // Round the pane width to two decimal places
+        paneWidth = this.roundToTwoDecimalPlaces(paneWidth);
+
         this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
 
         // Cache the window settings
@@ -148,6 +154,15 @@ class App {
         // this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
         // this.canvasWindowSettings.setNumberOfPaneColumns(numberOfColumns);
         // this.canvasWindowSettings.setPaneWidth(paneWidth);
+    }
+
+    /**
+     * Rounds a value to two decimal places.
+     * @param {number} value - The value to round.
+     * @returns {number} The rounded value.
+     */
+    roundToTwoDecimalPlaces(value) {
+        return Math.round((value + Number.EPSILON) * 100) / 100;
     }
 
     /**
