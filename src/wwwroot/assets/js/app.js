@@ -42,11 +42,6 @@ class App {
         
         this.paneWidthElemnt = document.getElementById('pane-width');
         this.paneHeightElemnt = document.getElementById('pane-height');
-
-        /* TODO: uncomment when reset functionality is needed in issue #4
-        this.resetButton = document.getElementById('reset-form');
-        this.resetButton.addEventListener('click', this.handleReset.bind(this));
-        */
     }
 
     /**
@@ -56,6 +51,7 @@ class App {
     calculateSizes(event) {
         event.preventDefault();
         console.log('Form submitted, calculating sizes');
+
         // Additional logic for form submission can be added here
         this.calculatAndSetPaneWidth();
         this.calculateAndSetPaneHeight();
@@ -101,13 +97,6 @@ class App {
         this.windowSettings.innerFrameWidth = innerFrameWidth;
         this.windowSettings.numberOfPaneRows = numberOfPaneRows;
         this.windowSettings.paneHeight = paneHeight;
-
-        // // Update the canvas window settings with the new dimensions
-        // this.canvasWindowSettings.setWindowOpeningHeight(windowHeight);
-        // this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
-        // this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
-        // this.canvasWindowSettings.setNumberOfPaneRows(numberOfRows);
-        // this.canvasWindowSettings.setPaneHeight(paneHeight);
     }
     /**
      * Calculates and sets the pane width based on the input fields.
@@ -147,13 +136,6 @@ class App {
         this.windowSettings.innerFrameWidth = innerFrameWidth;
         this.windowSettings.numberOfPaneColumns = numberOfPaneColumns;
         this.windowSettings.paneWidth = paneWidth;
-        
-        // // Update the canvas window settings with the new dimensions
-        // this.canvasWindowSettings.setWindowOpeningWidth(windowWidth);
-        // this.canvasWindowSettings.setOuterFrameWidth(outerFrameWidth);
-        // this.canvasWindowSettings.setInnerFrameWidth(innerFrameWidth);
-        // this.canvasWindowSettings.setNumberOfPaneColumns(numberOfColumns);
-        // this.canvasWindowSettings.setPaneWidth(paneWidth);
     }
 
     /**
@@ -195,11 +177,6 @@ class App {
         if (!this.submitButton) {
             errors.push('Submit button is missing');
         }
-        /* TODO: uncomment when reset functionality is needed in issue #4
-        if (!this.resetButton) {
-            errors.push('Reset button is missing');
-        }
-        */
         if (!this.paneWidthElemnt) {
             errors.push('Pane width element is missing');
         }
