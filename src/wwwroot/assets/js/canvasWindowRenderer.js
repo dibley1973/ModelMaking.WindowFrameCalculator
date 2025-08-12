@@ -19,7 +19,6 @@ export default class CanvasWindowRenderer {
         }
         
         this.canvasContext = this.canvas.getContext('2d');
-        //this.resizeCanvas();
 
         console.log('CanvasWindowRenderer initialized');
     }
@@ -32,8 +31,6 @@ export default class CanvasWindowRenderer {
         console.log('Drawing window frame...');
 
         this.resizeCanvas(windowSettings);
-
-        //this.windowSettings = windowSettings;
 
         const context = this.canvasContext;
 
@@ -48,7 +45,6 @@ export default class CanvasWindowRenderer {
         context.strokeStyle="#999999"; // gray border
         context.strokeRect(0, 0, this.canvas.width, this.canvas.height);
 
-        
         // Iterate through the number of rows and columns to draw the panes
         context.fillStyle = "#AAEEFF";  // light blue panes
         context.strokeStyle="#88AABB";  // bluey-gray border
@@ -105,7 +101,6 @@ export default class CanvasWindowRenderer {
                     startPositionXMultiplied + windowSettings.paneWidth * this.pixelMultiplier - context.measureText(bottomRightText).width,
                     startPositionYMultiplied + windowSettings.paneHeight * this.pixelMultiplier - 5); // Adjusted for text height
             }
-        
         }
 
         console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
@@ -133,5 +128,3 @@ export default class CanvasWindowRenderer {
         return Math.round((value + Number.EPSILON) * 100) / 100;
     }
 }
-
-
