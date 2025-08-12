@@ -83,7 +83,7 @@ class App {
         const totalOuterFrameHeight = outerFrameWidth * 2; // Outer frame on both sides
         const totalInnerFrameHeight = innerFrameWidth * (numberOfPaneRows - 1); // Inner frame between rows
         const totalFrameHeight = totalOuterFrameHeight + totalInnerFrameHeight;
-        const paneHeight = (windowOpeningHeight - totalFrameHeight) / numberOfPaneRows;
+        let paneHeight = (windowOpeningHeight - totalFrameHeight) / numberOfPaneRows;
 
         // Validate the calculated pane height
         if (paneHeight <= 0) {
@@ -130,7 +130,7 @@ class App {
         const totalOuterFrameWidth = outerFrameWidth * 2; // Outer frame on both sides
         const totalInnerFrameWidth = innerFrameWidth * (numberOfPaneColumns - 1); // Inner frame between columns
         const totalFrameWidth = totalOuterFrameWidth + totalInnerFrameWidth;
-        const paneWidth = (windowOpeningWidth - totalFrameWidth) / numberOfPaneColumns;
+        let paneWidth = (windowOpeningWidth - totalFrameWidth) / numberOfPaneColumns;
 
         if (paneWidth <= 0) {
             console.error('Calculated pane width is not valid');
