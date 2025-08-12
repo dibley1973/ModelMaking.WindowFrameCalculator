@@ -1,4 +1,3 @@
-import CanvasWindowSettings from './CanvasWindowSettings.js';
 import CanvasWindowRenderer from './canvasWindowRenderer.js';
 import WindowSettings from './windowSettings.js';
 
@@ -22,8 +21,6 @@ class App {
         this.validateElements();
 
         this.windowSettings = new WindowSettings();
-        this.canvasWindowSettings = new CanvasWindowSettings();
-        this.canvasWindowSettings.setCanvasElementId(this.canvasElementId);
     }
 
     assignElements() {
