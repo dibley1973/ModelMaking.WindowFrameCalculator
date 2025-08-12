@@ -97,8 +97,8 @@ export default class CanvasWindowRenderer {
                     startPositionYMultiplied + this.fontSize);
 
                 // Draw the bottom-right corner position as dimensions text
-                const bottomRightPositionX = startPositionX + windowSettings.paneWidth;
-                const bottomRightPositionY = startPositionY + windowSettings.paneHeight;
+                const bottomRightPositionX = this.roundToTwoDecimalPlaces(startPositionX + windowSettings.paneWidth);
+                const bottomRightPositionY = this.roundToTwoDecimalPlaces(startPositionY + windowSettings.paneHeight);
                 const bottomRightText = `${bottomRightPositionX}x${bottomRightPositionY}`;
                 context.strokeText(
                     bottomRightText,
@@ -122,6 +122,15 @@ export default class CanvasWindowRenderer {
         this.canvas.height = this.pixelMultiplier * windowSettings.windowOpeningHeight;
 
         console.log(`Canvas resized to ${this.canvas.width} x ${this.canvas.height}`);
+    }
+
+        /**
+     * Rounds a value to two decimal places.
+     * @param {number} value - The value to round.
+     * @returns {number} The rounded value.
+     */
+    roundToTwoDecimalPlaces(value) {
+        return Math.round((value + Number.EPSILON) * 100) / 100;
     }
 }
 
