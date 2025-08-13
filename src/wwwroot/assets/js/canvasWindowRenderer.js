@@ -12,7 +12,7 @@ export default class CanvasWindowRenderer {
      * @param {string} canvasElementId - The HTML element ID of the canvas.
      * @param {*} pixelMultiplier - The multiplier for pixel dimensions.
      * @throws Will throw an error if the canvas element is not found.
-     */
+     **/
     constructor(canvasElementId, pixelMultiplier) {
         this.#pixelMultiplier = pixelMultiplier;
         this.#fontSize = 20; // Default font size
@@ -28,27 +28,38 @@ export default class CanvasWindowRenderer {
         console.log('CanvasWindowRenderer initialized for element:', canvasElementId);
     }
 
+
     /**
      * Draws the window frame on the canvas.
      * @param {WindowSettings} windowSettings - Settings for the canvas window.
-     * */
+     * @throws Will throw an error if the windowSettings object is invalid.
+     * @returns {CanvasWindowRenderer} The instance of the CanvasWindowRenderer for method chaining
+     **/
     drawWindowFrame(windowSettings) {
         console.log('Drawing window frame...');
 
-        this.#resizeCanvas(windowSettings);
+        // Validate the windowSettings object
+        if (!windowSettings || typeof windowSettings !== 'object') {
+            throw new Error('Invalid window settings provided.');
+        }
+
+        this.#resizeCanvas(windowSettings)
+            .#drawWindowBackground()
+            .#drawWindowBorder()
+            .#drawWindowPanes(windowSettings);       
+
+        console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
+    }
+
+    /**
+     * Draws the window panes based on the provided settings.
+     * @param {WindowSettings} windowSettings - Settings for the window panes.
+     * @returns {CanvasWindowRenderer} The instance of the CanvasWindowRenderer for method chaining
+     **/
+    #drawWindowPanes(windowSettings) {
+        console.log('Drawing window panes...');
 
         const context = this.#canvasContext;
-
-        // Draw the background
-        context.globalCompositeOperation = "destination-over";
-        context.fillStyle = "#EEEEEE"; // light gray background
-        context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
-
-        // Draw the outer frame
-        context.globalCompositeOperation = "source-over";
-        context.lineWidth = 1;
-        context.strokeStyle="#999999"; // gray border
-        context.strokeRect(0, 0, this.#canvas.width, this.#canvas.height);
 
         // Iterate through the number of rows and columns to draw the panes
         context.fillStyle = "#AAEEFF";  // light blue panes
@@ -107,14 +118,46 @@ export default class CanvasWindowRenderer {
                     startPositionYMultiplied + windowSettings.paneHeight * this.#pixelMultiplier - 5); // Adjusted for text height
             }
         }
+    }
 
-        console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
+    /** Draws the background of the window.
+     * @returns {CanvasWindowRenderer} The instance of the CanvasWindowRenderer for method chaining
+     **/ 
+    #drawWindowBackground() {
+        console.log('Drawing window background...');
+
+        const context = this.#canvasContext;
+
+        // Draw the background
+        context.globalCompositeOperation = "destination-over";
+        context.fillStyle = "#EEEEEE"; // light gray background
+        context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+
+        return this;
+    }
+
+    /** Draws the border of the window.
+     * @returns {CanvasWindowRenderer} The instance of the CanvasWindowRenderer for method chaining
+     **/
+    #drawWindowBorder() {
+        console.log('Drawing window border...');
+
+        const context = this.#canvasContext;
+
+        // Draw the outer frame
+        context.globalCompositeOperation = "source-over";
+        context.lineWidth = 1;
+        context.strokeStyle="#999999"; // gray border
+        context.strokeRect(0, 0, this.#canvas.width, this.#canvas.height);
+
+        return this;
     }
 
     /**
      * Resizes the canvas based on the window pixel ratio and dimensions.
      * @param {WindowSettings} windowSettings - Settings for the canvas window.
-     */
+     * @returns {CanvasWindowRenderer} The instance of the CanvasWindowRenderer for method chaining
+     **/
     #resizeCanvas(windowSettings) {
         console.log('Resizing canvas...');
         
@@ -122,13 +165,15 @@ export default class CanvasWindowRenderer {
         this.#canvas.height = this.#pixelMultiplier * windowSettings.windowOpeningHeight;
 
         console.log(`Canvas resized to ${this.#canvas.width} x ${this.#canvas.height}`);
+
+        return this;
     }
 
-        /**
+    /**
      * Rounds a value to two decimal places.
      * @param {number} value - The value to round.
      * @returns {number} The rounded value.
-     */
+     **/
     #roundToTwoDecimalPlaces(value) {
         return Math.round((value + Number.EPSILON) * 100) / 100;
     }
