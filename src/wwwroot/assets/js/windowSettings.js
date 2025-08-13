@@ -15,4 +15,12 @@ export default class WindowSettings {
         this.paneHeight = 0;
         this.paneWidth = 0;
     }
+
+    /**
+     * Calculates the total number of panes based on the number of columns and rows.
+     * @returns {number} The total number of panes.
+     */
+    numberOfPanes() {
+        return this.numberOfPaneColumns * this.numberOfPaneRows;
+    }
 }
