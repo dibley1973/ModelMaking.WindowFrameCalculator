@@ -17,13 +17,13 @@ class App {
         this.canvasElementId = "window-canvas";
         this.canvasRenderingPixelMultiplier = 20;
 
-        this.assignElements();
-        this.validateElements();
+        this.#assignElements();
+        this.#validateElements();
 
         this.windowSettings = new WindowSettings();
     }
 
-    assignElements() {
+    #assignElements() {
 
         this.form = document.getElementById('calculator-form');
 
@@ -50,8 +50,8 @@ class App {
         console.log('Form submitted, calculating sizes');
 
         // Additional logic for form submission can be added here
-        this.calculatAndSetPaneWidth();
-        this.calculateAndSetPaneHeight();
+        this.#calculatAndSetPaneWidth();
+        this.#calculateAndSetPaneHeight();
 
         // Initialize the canvas window renderer with the settings
         const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasElementId, this.canvasRenderingPixelMultiplier);
@@ -60,7 +60,7 @@ class App {
         canvasWindowRenderer.drawWindowFrame(this.windowSettings);
     }
 
-    calculateAndSetPaneHeight() {
+    #calculateAndSetPaneHeight() {
         const windowOpeningHeight = parseFloat(this.windowOpeningHeightField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
@@ -84,7 +84,7 @@ class App {
         }
 
         // Round the pane height to two decimal places
-        paneHeight = this.roundToTwoDecimalPlaces(paneHeight);
+        paneHeight = this.#roundToTwoDecimalPlaces(paneHeight);
 
         this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
 
@@ -102,7 +102,7 @@ class App {
      * @returns {void}
      * @throws {Error} If any of the input values are invalid or missing.
      */
-    calculatAndSetPaneWidth() {
+    #calculatAndSetPaneWidth() {
         const windowOpeningWidth = parseFloat(this.windowOpeningWidthField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
@@ -123,7 +123,7 @@ class App {
         }
 
         // Round the pane width to two decimal places
-        paneWidth = this.roundToTwoDecimalPlaces(paneWidth);
+        paneWidth = this.#roundToTwoDecimalPlaces(paneWidth);
 
         this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
 
@@ -140,14 +140,14 @@ class App {
      * @param {number} value - The value to round.
      * @returns {number} The rounded value.
      */
-    roundToTwoDecimalPlaces(value) {
+    #roundToTwoDecimalPlaces(value) {
         return Math.round((value + Number.EPSILON) * 100) / 100;
     }
 
     /**
      * Validates the presence of required elements.
      */
-    validateElements() {
+    #validateElements() {
         var errors = [];
 
         if (!this.form) {
