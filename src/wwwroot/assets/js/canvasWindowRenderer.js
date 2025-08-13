@@ -28,7 +28,6 @@ export default class CanvasWindowRenderer {
         console.log('CanvasWindowRenderer initialized for element:', canvasElementId);
     }
 
-
     /**
      * Draws the window frame on the canvas.
      * @param {WindowSettings} windowSettings - Settings for the canvas window.
@@ -48,7 +47,7 @@ export default class CanvasWindowRenderer {
             .#drawWindowBorder()
             .#drawWindowPanes(windowSettings);       
 
-        console.log(`Window frame drawn with pane dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
+        console.log(`Window frame drawn with ${windowSettings.numberOfPanes()} panes, of dimensions: ${windowSettings.paneWidth} x ${windowSettings.paneHeight}`);
     }
 
     /**
