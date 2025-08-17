@@ -121,3 +121,9 @@ Branches should be prefixed with the type of branch they are:
 ## CI
 
 We are using **GitHub Actions** for deployment to **GitHub Pages**.
+
+## Demo Web page
+
+There is a demo web page with the work in the current main branch available here:
+
+https://dibley1973.github.io/ModelMaking.WindowFrameCalculator/src/wwwroot
