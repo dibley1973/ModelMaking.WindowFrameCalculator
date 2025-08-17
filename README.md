@@ -11,6 +11,8 @@ The purpose of this project is to build a small HTML and JavaScipt single page a
   - Use semantic HTML where possible 
 - Native javascript only
   - No node packages / js frameworks
+- Native CSS only 
+  - No Presentation frameworks like bootstrap / vuetify / etc
 
 ## Requirements
 
