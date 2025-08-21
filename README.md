@@ -11,6 +11,8 @@ The purpose of this project is to build a small HTML and JavaScipt single page a
   - Use semantic HTML where possible 
 - Native javascript only
   - No node packages / js frameworks
+- Native CSS only 
+  - No Presentation frameworks like bootstrap / vuetify / etc
 
 ## Requirements
 
@@ -118,4 +120,10 @@ Branches should be prefixed with the type of branch they are:
 
 ## CI
 
-There will be no CI initially but when we get some kind of working product we may introduce Travis or gitHub Actions to build and deploy
+We are using **GitHub Actions** for deployment to **GitHub Pages**.
+
+## Demo Web page
+
+There is a demo web page with the work in the current main branch available here:
+
+https://dibley1973.github.io/ModelMaking.WindowFrameCalculator/src/wwwroot
