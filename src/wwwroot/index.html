@@ -51,13 +51,19 @@
                 <h2>Calculated Panel Sizes</h2>
                 <p>Pane Width: <span id="pane-width" data-test="pane-width-value"></span> mm</p>
                 <p>Pane Height: <span  id="pane-height" data-test="pane-height-value"></span> mm</p>
-
             </div>
 
+            <div id="window-canvas-container">
+                <!-- NB: Initial size only. Actual size will be dynmaically updated by the canvas rendering class -->
+                <canvas id="window-canvas" width="300" height="300"></canvas>
+            </div>
+            
             <div>
                 <h2>Window Parts</h2>
                 <img src="./assets/images/window-parts.svg" alt="Window Parts" id="window-parts-image" data-test="window-parts-image">
             </div>
         </div>
-        <script src="./assets/js/app.js"></script>
+        <script type="module" src="./assets/js/canvasWindowRenderer.js" ></script>
+        <script type="module" src="./assets/js/windowSettings.js" ></script>
+        <script type="module" src="./assets/js/app.js" ></script>
 </html>

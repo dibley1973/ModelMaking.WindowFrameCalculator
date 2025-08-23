@@ -1,15 +1,31 @@
+import CanvasWindowRenderer from './canvasWindowRenderer.js';
+import WindowSettings from './windowSettings.js';
+
 /**
  * App class for managing application state and behavior.
  */
 class App {
+    
+    /**
+     * Initializes the app with default settings and assigns elements.
+     * @throws Will throw an error if the canvas element is not found.
+     * */
     constructor() {
-        console.log('App initialized');
-        this.assignElements();
-        this.validateElements();
 
+        console.log('App initialized');
+
+        this.canvasElementId = "window-canvas";
+        this.canvasRenderingPixelMultiplier = 20;
+
+        this.#assignElements();
+        this.#attachEventListeners();
+        this.#validateElements();
+
+        this.windowSettings = new WindowSettings();
     }
 
-    assignElements() {
+    #assignElements() {
+
         this.form = document.getElementById('calculator-form');
 
         this.windowOpeningHeightField = document.getElementById('window-opening-height');
@@ -20,15 +36,18 @@ class App {
         this.innerFrameWidthField = document.getElementById('inner-frame-width');
 
         this.submitButton = document.getElementById('calculate-sizes');
-        this.submitButton.addEventListener('click', this.calculateSizes.bind(this));
         
-        this.paneWidthElemnt = document.getElementById('pane-width');
-        this.paneHeightElemnt = document.getElementById('pane-height');
-
-        /* TODO: uncomment when reset functionality is needed in issue #4
-        this.resetButton = document.getElementById('reset-form');
-        this.resetButton.addEventListener('click', this.handleReset.bind(this));
-        */
+        this.paneWidthElement = document.getElementById('pane-width');
+        this.paneHeightElement = document.getElementById('pane-height');
+    }
+    
+    /**
+     * Attaches event listeners to form elements.
+     * Binds the calculateSizes method to the submit button click event.
+     */
+    #attachEventListeners() {
+        this.submitButton.addEventListener("click", this.calculateSizes.bind(this));
+        //this.form.addEventListener("reset", this.#handleFormReset.bind(this));
     }
 
     /**
@@ -38,32 +57,52 @@ class App {
     calculateSizes(event) {
         event.preventDefault();
         console.log('Form submitted, calculating sizes');
+
         // Additional logic for form submission can be added here
-        this.calculatAndSetPaneWidth();
-        this.calculateAndSetPaneHeight();
+        this.#calculateAndSetPaneWidth();
+        this.#calculateAndSetPaneHeight();
+
+        // Initialize the canvas window renderer with the settings
+        const canvasWindowRenderer = new CanvasWindowRenderer(this.canvasElementId, this.canvasRenderingPixelMultiplier);
+        
+        // Draw the window frame on the canvas
+        canvasWindowRenderer.drawWindowFrame(this.windowSettings);
     }
 
-    calculateAndSetPaneHeight() {
-        const windowHeight = parseFloat(this.windowOpeningHeightField.value);
+    #calculateAndSetPaneHeight() {
+        const windowOpeningHeight = parseFloat(this.windowOpeningHeightField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
-        const numberOfRows = parseInt(this.numberOfPaneRowsField.value, 10);
-        
-        if (isNaN(windowHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfRows)) {
+        const numberOfPaneRows = parseInt(this.numberOfPaneRowsField.value, 10);
+
+        // Validate the values
+        if (isNaN(windowOpeningHeight) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfPaneRows)) {
             console.error('Invalid input values for pane height calculation');
             return;
         }
 
+        // Calculate the pane height
         const totalOuterFrameHeight = outerFrameWidth * 2; // Outer frame on both sides
-        const totalInnerFrameHeight = innerFrameWidth * (numberOfRows - 1); // Inner frame between rows
+        const totalInnerFrameHeight = innerFrameWidth * (numberOfPaneRows - 1); // Inner frame between rows
         const totalFrameHeight = totalOuterFrameHeight + totalInnerFrameHeight;
-        const paneHeight = (windowHeight - totalFrameHeight) / numberOfRows;
+        let paneHeight = (windowOpeningHeight - totalFrameHeight) / numberOfPaneRows;
 
+        // Validate the calculated pane height
         if (paneHeight <= 0) {
             console.error('Calculated pane height is not valid');
         }
 
-        this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
+        // Round the pane height to two decimal places
+        paneHeight = this.#roundToTwoDecimalPlaces(paneHeight);
+
+        this.paneHeightElement.textContent = `${paneHeight.toFixed(2)}`;
+
+        // Cache the window settings
+        this.windowSettings.windowOpeningHeight = windowOpeningHeight;
+        this.windowSettings.outerFrameWidth = outerFrameWidth;
+        this.windowSettings.innerFrameWidth = innerFrameWidth;
+        this.windowSettings.numberOfPaneRows = numberOfPaneRows;
+        this.windowSettings.paneHeight = paneHeight;
     }
     /**
      * Calculates and sets the pane width based on the input fields.
@@ -72,33 +111,52 @@ class App {
      * @returns {void}
      * @throws {Error} If any of the input values are invalid or missing.
      */
-    calculatAndSetPaneWidth() {
-        const windowWidth = parseFloat(this.windowOpeningWidthField.value);
+    #calculateAndSetPaneWidth() {
+        const windowOpeningWidth = parseFloat(this.windowOpeningWidthField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
-        const numberOfColumns = parseInt(this.numberOfPaneColumnsField.value, 10);
+        const numberOfPaneColumns = parseInt(this.numberOfPaneColumnsField.value, 10);
 
-        if (isNaN(windowWidth) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfColumns)) {
+        if (isNaN(windowOpeningWidth) || isNaN(outerFrameWidth) || isNaN(innerFrameWidth) || isNaN(numberOfPaneColumns)) {
             console.error('Invalid input values for pane width calculation');
             return;
         }
 
         const totalOuterFrameWidth = outerFrameWidth * 2; // Outer frame on both sides
-        const totalInnerFrameWidth = innerFrameWidth * (numberOfColumns - 1); // Inner frame between columns
+        const totalInnerFrameWidth = innerFrameWidth * (numberOfPaneColumns - 1); // Inner frame between columns
         const totalFrameWidth = totalOuterFrameWidth + totalInnerFrameWidth;
-        const paneWidth = (windowWidth - totalFrameWidth) / numberOfColumns;
+        let paneWidth = (windowOpeningWidth - totalFrameWidth) / numberOfPaneColumns;
 
         if (paneWidth <= 0) {
             console.error('Calculated pane width is not valid');
         }
 
-        this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
+        // Round the pane width to two decimal places
+        paneWidth = this.#roundToTwoDecimalPlaces(paneWidth);
+
+        this.paneWidthElement.textContent = `${paneWidth.toFixed(2)}`;
+
+        // Cache the window settings
+        this.windowSettings.windowOpeningWidth = windowOpeningWidth;
+        this.windowSettings.outerFrameWidth = outerFrameWidth;
+        this.windowSettings.innerFrameWidth = innerFrameWidth;
+        this.windowSettings.numberOfPaneColumns = numberOfPaneColumns;
+        this.windowSettings.paneWidth = paneWidth;
+    }
+
+    /**
+     * Rounds a value to two decimal places.
+     * @param {number} value - The value to round.
+     * @returns {number} The rounded value.
+     */
+    #roundToTwoDecimalPlaces(value) {
+        return Math.round((value + Number.EPSILON) * 100) / 100;
     }
 
     /**
      * Validates the presence of required elements.
      */
-    validateElements() {
+    #validateElements() {
         var errors = [];
 
         if (!this.form) {
@@ -125,15 +183,10 @@ class App {
         if (!this.submitButton) {
             errors.push('Submit button is missing');
         }
-        /* TODO: uncomment when reset functionality is needed in issue #4
-        if (!this.resetButton) {
-            errors.push('Reset button is missing');
-        }
-        */
-        if (!this.paneWidthElemnt) {
+        if (!this.paneWidthElement) {
             errors.push('Pane width element is missing');
         }
-        if (!this.paneHeightElemnt) {   
+        if (!this.paneHeightElement) {   
             errors.push('Pane height element is missing');
         }
 
