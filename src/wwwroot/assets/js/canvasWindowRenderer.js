@@ -17,7 +17,6 @@ export default class CanvasWindowRenderer {
         this.#pixelMultiplier = pixelMultiplier;
         this.#fontSize = 20; // Default font size
         
-        //this.#canvas = document.getElementById(canvasWindowSettings.canvasElementId);
         this.#canvas = document.getElementById(canvasElementId);
         if (!this.#canvas) {
             throw new Error(`Canvas element with ID ${canvasElementId} not found.`);

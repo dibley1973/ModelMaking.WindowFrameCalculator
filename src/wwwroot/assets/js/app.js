@@ -18,6 +18,7 @@ class App {
         this.canvasRenderingPixelMultiplier = 20;
 
         this.#assignElements();
+        this.#attachEventListeners();
         this.#validateElements();
 
         this.windowSettings = new WindowSettings();
@@ -35,10 +36,18 @@ class App {
         this.innerFrameWidthField = document.getElementById('inner-frame-width');
 
         this.submitButton = document.getElementById('calculate-sizes');
-        this.submitButton.addEventListener('click', this.calculateSizes.bind(this));
         
-        this.paneWidthElemnt = document.getElementById('pane-width');
-        this.paneHeightElemnt = document.getElementById('pane-height');
+        this.paneWidthElement = document.getElementById('pane-width');
+        this.paneHeightElement = document.getElementById('pane-height');
+    }
+    
+    /**
+     * Attaches event listeners to form elements.
+     * Binds the calculateSizes method to the submit button click event.
+     */
+    #attachEventListeners() {
+        this.submitButton.addEventListener("click", this.calculateSizes.bind(this));
+        //this.form.addEventListener("reset", this.#handleFormReset.bind(this));
     }
 
     /**
@@ -50,7 +59,7 @@ class App {
         console.log('Form submitted, calculating sizes');
 
         // Additional logic for form submission can be added here
-        this.#calculatAndSetPaneWidth();
+        this.#calculateAndSetPaneWidth();
         this.#calculateAndSetPaneHeight();
 
         // Initialize the canvas window renderer with the settings
@@ -86,7 +95,7 @@ class App {
         // Round the pane height to two decimal places
         paneHeight = this.#roundToTwoDecimalPlaces(paneHeight);
 
-        this.paneHeightElemnt.textContent = `${paneHeight.toFixed(2)}`;
+        this.paneHeightElement.textContent = `${paneHeight.toFixed(2)}`;
 
         // Cache the window settings
         this.windowSettings.windowOpeningHeight = windowOpeningHeight;
@@ -102,7 +111,7 @@ class App {
      * @returns {void}
      * @throws {Error} If any of the input values are invalid or missing.
      */
-    #calculatAndSetPaneWidth() {
+    #calculateAndSetPaneWidth() {
         const windowOpeningWidth = parseFloat(this.windowOpeningWidthField.value);
         const outerFrameWidth = parseFloat(this.outerFrameWidthField.value);
         const innerFrameWidth = parseFloat(this.innerFrameWidthField.value);
@@ -125,7 +134,7 @@ class App {
         // Round the pane width to two decimal places
         paneWidth = this.#roundToTwoDecimalPlaces(paneWidth);
 
-        this.paneWidthElemnt.textContent = `${paneWidth.toFixed(2)}`;
+        this.paneWidthElement.textContent = `${paneWidth.toFixed(2)}`;
 
         // Cache the window settings
         this.windowSettings.windowOpeningWidth = windowOpeningWidth;
@@ -174,10 +183,10 @@ class App {
         if (!this.submitButton) {
             errors.push('Submit button is missing');
         }
-        if (!this.paneWidthElemnt) {
+        if (!this.paneWidthElement) {
             errors.push('Pane width element is missing');
         }
-        if (!this.paneHeightElemnt) {   
+        if (!this.paneHeightElement) {   
             errors.push('Pane height element is missing');
         }
 
