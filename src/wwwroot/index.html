@@ -1,63 +1,172 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>WindowFrameCalculator</title>
-        <link rel="stylesheet" href="./assets/css/styles.css">
+        <link rel="stylesheet" href="./assets/css/styles.css" />
     </head>
+
     <body>
-        <div id="app">
+        <header>
             <h1>Window Frame Calculator</h1>
-            <p>Calculate the frame size for your windows.</p>
-            <form id="calculator-form">
-                <div class="form-group">
-                    <label for="window-opening-width">Window opening width (in mm):</label>
-                    <input type="number" id="window-opening-width" name="window-opening-width" data-test="window-opening-width" required min="0">
-                </div>
+            <p>Calculate the frame size for your windows</p>
+        </header>
 
-                <div class="form-group">
-                    <label for="window-opening-height">Window opening height (in mm):</label>
-                    <input type="number" id="window-opening-height" name="window-opening-height" data-test="window-opening-height" required min="0">
-                </div>
+        <main id="app">
+            <section id="calculator">
+                <h2>Parameters</h2>
 
-                <div class="form-group">
-                    <label for="number-of-columns-of-panes">The number of columns of window panes:</label>
-                    <input type="number" id="number-of-columns-of-panes" name="number-of-columns-of-panes" data-test="number-of-columns-of-panes" required min="1">
-                </div>
+                <form id="calculator-form">
+                    <fieldset>
+                        <legend>Window opening</legend>
 
-                <div class="form-group">
-                    <label for="number-of-rows-of-panes">The number of rows of window panes:</label>
-                    <input type="number" id="number-of-rows-of-panes" name="number-of-rows-of-panes" data-test="number-of-rows-of-panes" required min="1">
-                </div>
+                        <div class="form-group">
+                            <label for="window-opening-width">
+                                Width (millimetres)
+                            </label>
+                            <input
+                                type="number"
+                                id="window-opening-width"
+                                name="window-opening-width"
+                                data-test="window-opening-width"
+                                required
+                                min="0"
+                            />
+                        </div>
 
-                <div class="form-group">
-                    <label for="outer-frame-width">Outer frame width (in mm):</label>
-                    <input type="number" id="outer-frame-width" name="outer-frame-width" data-test="outer-frame-width" required min="0">
-                </div>
-                
-                <div class="form-group">
-                    <label for="inner-frame-width">Inner frame width (in mm):</label>
-                    <input type="number" id="inner-frame-width" name="inner-frame-width" data-test="inner-frame-width" required min="0">
-                </div>
+                        <div class="form-group">
+                            <label for="window-opening-height">
+                                Height (millimetres)
+                            </label>
+                            <input
+                                type="number"
+                                id="window-opening-height"
+                                name="window-opening-height"
+                                data-test="window-opening-height"
+                                required
+                                min="0"
+                            />
+                        </div>
+                    </fieldset>
 
-                <div class="form-group">
-                    <button type="submit" id="calculate-sizes" data-test="calculate-sizes" >Calculate Sizes</button>
-                    <button type="reset" id="reset-form" data-test="reset-form" >Reset Form</button>
-                </div>
+                    <fieldset>
+                        <legend>Window panes</legend>
 
-            </form>
+                        <div class="form-group">
+                            <label for="number-of-columns-of-panes">
+                                Columns
+                            </label>
+                            <input
+                                type="number"
+                                id="number-of-columns-of-panes"
+                                name="number-of-columns-of-panes"
+                                data-test="number-of-columns-of-panes"
+                                required
+                                min="1"
+                            />
+                        </div>
 
-            <div id="result">
-                <h2>Calculated Panel Sizes</h2>
-                <p>Pane Width: <span id="pane-width" data-test="pane-width-value"></span> mm</p>
-                <p>Pane Height: <span  id="pane-height" data-test="pane-height-value"></span> mm</p>
+                        <div class="form-group">
+                            <label for="number-of-rows-of-panes">Rows</label>
+                            <input
+                                type="number"
+                                id="number-of-rows-of-panes"
+                                name="number-of-rows-of-panes"
+                                data-test="number-of-rows-of-panes"
+                                required
+                                min="1"
+                            />
+                        </div>
+                    </fieldset>
 
-            </div>
+                    <fieldset>
+                        <legend>Frame width</legend>
 
-            <div>
-                <h2>Window Parts</h2>
-                <img src="./assets/images/window-parts.svg" alt="Window Parts" id="window-parts-image" data-test="window-parts-image">
-            </div>
-        </div>
+                        <div class="form-group">
+                            <label for="outer-frame-width">
+                                Outer (millimetres)
+                            </label>
+                            <input
+                                type="number"
+                                id="outer-frame-width"
+                                name="outer-frame-width"
+                                data-test="outer-frame-width"
+                                required
+                                min="0"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inner-frame-width">
+                                Inner (millimetres)
+                            </label>
+                            <input
+                                type="number"
+                                id="inner-frame-width"
+                                name="inner-frame-width"
+                                data-test="inner-frame-width"
+                                required
+                                min="0"
+                            />
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <button
+                            type="submit"
+                            id="calculate-sizes"
+                            data-test="calculate-sizes"
+                        >
+                            Calculate sizes
+                        </button>
+
+                        <button
+                            type="reset"
+                            id="reset-form"
+                            data-test="reset-form"
+                        >
+                            Reset form
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="result">
+                <h2>Calculated panel sizes</h2>
+
+                <ul role="list">
+                    <li>
+                        Pane width:
+                        <span
+                            id="pane-width"
+                            data-test="pane-width-value"
+                        ></span>
+                        mm
+                    </li>
+                    <li>
+                        Pane height:
+                        <span
+                            id="pane-height"
+                            data-test="pane-height-value"
+                        ></span>
+                        mm
+                    </li>
+                </ul>
+            </section>
+
+            <section id="window-parts">
+                <h2>Window parts</h2>
+
+                <img
+                    src="./assets/images/window-parts.svg"
+                    alt="Window Parts"
+                    id="window-parts-image"
+                    data-test="window-parts-image"
+                />
+            </section>
+        </main>
+
         <script src="./assets/js/app.js"></script>
+    </body>
 </html>
